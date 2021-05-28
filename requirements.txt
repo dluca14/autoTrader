@@ -3,3 +3,6 @@ djangorestframework
 markdown
 django-filter
 numpy
+psycopg2
+django-cors-headers
+pika
