@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: [ "./wait-for-it.sh", "db:5432", "--strict", "--timeout=0", "--", "python", "manage.py" ,"runserver" ,"0.0.0.0:8000" ]
+    command: ["python", "manage.py" ,"runserver" ,"0.0.0.0:8000"]
     ports:
     - 8000:8000
     volumes:
@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: [ "./wait-for-it.sh", "db:5432", "--strict", "--timeout=0", "--", "python", "consumer.py" ]
+    command: ["python", "consumer.py"]
     depends_on:
       - db
 
