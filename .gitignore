@@ -4,3 +4,5 @@
 __pycache__/
 **.cpy
 **/node_modules
+frontend/static/frontend/*
+!frontend/static/frontend/.gitkeep
