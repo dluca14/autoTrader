@@ -18,6 +18,11 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+      fallback: {
+        "crypto": false
+      }
+  },
   optimization: {
     minimize: true,
   },

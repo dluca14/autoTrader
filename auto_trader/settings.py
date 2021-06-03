@@ -71,6 +71,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'accounts.Account'
+
 WSGI_APPLICATION = 'auto_trader.wsgi.application'
 
 # Database
