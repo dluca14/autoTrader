@@ -6,3 +6,5 @@ numpy
 psycopg2
 django-cors-headers
 pika
+pandas
+requests
