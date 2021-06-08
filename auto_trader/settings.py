@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'accounts.apps.AccountsConfig',
-    'frontend.apps.FrontendConfig'
+    'frontend.apps.FrontendConfig',
+    'inference.apps.InferenceConfig'
 ]
 
 MIDDLEWARE = [

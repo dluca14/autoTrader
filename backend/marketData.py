@@ -33,3 +33,6 @@ if __name__ == '__main__':
     market = marketData(coins=coins)
 
     market.retrieve_data()
+
+    for coin in coins:
+        market.data_fusion(coin=coin, period='hour')

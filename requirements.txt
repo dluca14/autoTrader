@@ -9,3 +9,5 @@ pika
 docker-compose
 pandas
 requests
+joblib
+
