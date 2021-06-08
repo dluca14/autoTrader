@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'auto_trader.apps.AutoTraderConfig',
     'frontend.apps.FrontendConfig',
-    'inference.apps.InferenceConfig'
+    'inference.apps.InferenceConfig',
+    'integrations.apps.IntegrationsConfig'
 ]
 
 MIDDLEWARE = [

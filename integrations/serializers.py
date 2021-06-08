@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from auto_trader.models import Tweet
+from integrations.models import Tweet
 
 
 class TweetSerializer(serializers.ModelSerializer):
