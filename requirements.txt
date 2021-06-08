@@ -10,7 +10,3 @@ docker-compose
 pandas
 requests
 joblib
-<<<<<<< HEAD
-=======
-
->>>>>>> f81f240e48835ee0e3981e22fbbfeef491688adb
