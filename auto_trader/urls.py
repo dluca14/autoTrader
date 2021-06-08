@@ -6,5 +6,6 @@ urlpatterns = [
     path('', include('frontend.urls')),
 
     # REST FRAMEWORK URLS
-    path('api/accounts/', include('accounts.api.urls', 'accounts_api'))
+    path('api/accounts/', include('accounts.api.urls', 'accounts_api')),
+    path('api/inference/', include('inference.urls'))
 ]
