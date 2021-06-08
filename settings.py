@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'accounts.apps.AccountsConfig',
+    'auto_trader.apps.AutoTraderConfig',
     'frontend.apps.FrontendConfig',
     'inference.apps.InferenceConfig'
 ]
