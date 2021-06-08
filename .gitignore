@@ -1,5 +1,5 @@
 /venv/
-/data/
+/data/db/
 /.idea/
 __pycache__/
 **.cpy

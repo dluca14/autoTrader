@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: '0px 3px',
         color: "white"
+    },
+    name: {
+        display: "inline",
+        marginRight: "9px"
     }
 }));
 
@@ -34,14 +38,14 @@ const Header = (props) => {
             <Button component={Link} to="/login" variant="outlined" className={classes.button}>
                 Login
             </Button>
-            <Button component={Link} to="/register" variant="outlined" className={classes.button}>
-                Register
-            </Button>
         </div>
     );
 
     const authLinks = (
         <div>
+            <Typography variant="body2" className={classes.name}>
+                {user ? `Welcome ${user.first_name}!` : ""}
+            </Typography>
             <Button onClick={props.logout} variant="outlined" className={classes.button}>
                 Logout
             </Button>
