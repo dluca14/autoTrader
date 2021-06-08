@@ -1,10 +1,9 @@
-from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('frontend.urls')),
+    path('', include('accounts.urls')),
 
     # REST FRAMEWORK URLS
-    path('api/accounts/', include('accounts.api.urls', 'accounts_api'))
+    # path('api/accounts/', include('accounts.urls', namespace='accounts'))
 ]

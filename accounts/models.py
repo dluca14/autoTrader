@@ -3,26 +3,26 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 class AccountManager(BaseUserManager):
-    def create_user(self, email, username, password=None):
+    def create_user(self, email, first_name, last_name, password):
         if not email:
             raise ValueError("User must have an email address")
-        if not username:
-            raise ValueError("User must have an username")
 
         user = self.model(
             email=self.normalize_email(email),
-            username=username,
+            first_name=first_name,
+            last_name=last_name
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, password):
+    def create_superuser(self, email, first_name, last_name, password):
         user = self.create_user(
             email=self.normalize_email(email),
             password=password,
-            username=username,
+            first_name=first_name,
+            last_name=last_name
         )
         user.is_admin = True
         user.is_staff = True
@@ -33,7 +33,8 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    username = models.CharField(max_length=30, unique=True)
+    first_name = models.CharField(verbose_name="first name", max_length=30, null=True)
+    last_name = models.CharField(verbose_name="last name", max_length=150, null=True)
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now_add=True)
     is_admin = models.BooleanField(default=False)
@@ -43,7 +44,9 @@ class Account(AbstractBaseUser):
 
     # What the user should login with
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    objects = AccountManager()
 
     def __str__(self):
         return self.email
