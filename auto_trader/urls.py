@@ -10,5 +10,6 @@ urlpatterns = [
 
 
     path('tweets/', views.tweets_list),
+    path('api/integrations', include('integrations.urls')),
     path('api/inference/', include('inference.urls'))
 ]
