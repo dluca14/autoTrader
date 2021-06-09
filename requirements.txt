@@ -9,7 +9,6 @@ numpy
 psycopg2
 django-cors-headers
 pika
-docker-compose
 pandas
 requests
 joblib
