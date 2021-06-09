@@ -1,6 +1,9 @@
 django~=3.2.4
 djangorestframework~=3.12.4
 markdown
+asgiref
+cffi
+django-rest-knox
 django-filter
 numpy
 psycopg2
@@ -11,3 +14,6 @@ pandas~=1.2.4
 requests~=2.25.1
 joblib~=1.0.1
 twython~=3.8.2
+sqlparse
+pycparser
+pytz
