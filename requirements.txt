@@ -17,3 +17,5 @@ twython~=3.8.2
 sqlparse
 pycparser
 pytz
+gmplot~=1.4.1
+geopy~=2.1.0
