@@ -35,9 +35,9 @@ class GetMostCommonHashtags(APIView):
 
 class GetHeatMap(APIView):
     def get(self, request, format=None):
-        get_heat_map()
+        result = get_heat_map()
 
-        return Response()
+        return Response(result)
 
 
 class ListTweetsAsDataFrame(APIView):
@@ -56,7 +56,8 @@ class DownloadTweets(APIView):
                             settings.TWITTER_CREDENTIALS['ACCESS_TOKEN'],
                             settings.TWITTER_CREDENTIALS['ACCESS_SECRET'])
         # Start the stream
-        stream.statuses.filter(track='crypto', language='en')
+        stream.statuses.filter(track=['crypto', 'BTC', 'bitcoin', 'blockchain'],
+                               language='en')
 
         return Response()
 

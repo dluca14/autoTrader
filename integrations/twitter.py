@@ -1,20 +1,11 @@
 import ast
 import csv
-import os
-import webbrowser
-
-import pandas as pd
-from twython import TwythonStreamer
 from collections import Counter
 
-from geopy.geocoders import Nominatim
+import pandas as pd
 import gmplot
-
-# import sys
-# sys.path.append('/home/david/workspace/auto_trader')
-
-# import os
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+from twython import TwythonStreamer
+from geopy.geocoders import Nominatim
 
 from integrations.models import Tweet
 
@@ -49,15 +40,6 @@ class MyStreamer(TwythonStreamer):
         self.disconnect()
 
 
-# def get_tweets():
-#     # Instantiate from our streaming class
-#     stream = MyStreamer(settings.TWITTER_CREDENTIALS['CONSUMER_KEY'], settings.TWITTER_CREDENTIALS['CONSUMER_SECRET'],
-#                         settings.TWITTER_CREDENTIALS['ACCESS_TOKEN'], settings.TWITTER_CREDENTIALS['ACCESS_SECRET'])
-#     # Start the stream
-#     stream.statuses.filter(track='crypto')
-
-# --------------
-
 def get_most_common_hashtags():
     tweets = Tweet.objects.all()
     tweets_df = pd.DataFrame(list(tweets.values()))
@@ -72,8 +54,6 @@ def get_most_common_hashtags():
     print('Most common hashtags: ', counter_hashtags.most_common(10))
 
     return counter_hashtags.most_common(10)
-
-# # -------------
 
 
 def get_heat_map():
@@ -99,10 +79,9 @@ def get_heat_map():
 
     # Instantiate and center a GoogleMapPlotter object to show our map
     gmap = gmplot.GoogleMapPlotter(30, 0, 3)
-
     # Insert points on the map passing a list of latitudes and longitudes
     gmap.heatmap(coordinates['latitude'], coordinates['longitude'], radius=20)
-
     # Save the map to html file
     gmap.draw("heatmap.html")
-    webbrowser.open('file://' + '/home/david/workspace/auto_trader/heatmap.html')
+
+    return gmap.get()
