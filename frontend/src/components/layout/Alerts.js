@@ -12,12 +12,16 @@ const Alerts = (props, prevProps) => {
         } else {
             const {error, alert, message} = props;
 
-            // Add errors here
-            if (error != prevProps.error) {
+            // Add custom errors here
+            if (error !== prevProps.error) {
                 if (error.msg.non_field_errors)
                     alert.error(error.msg.non_field_errors.join());
                 if (error.msg.email)
                     alert.error(error.msg.email.join());
+                if (error.status === 404)
+                    alert.error("Something went wrong..")
+                if (error.status === 500)
+                    alert.error("Server Failure")
             }
         }
     });

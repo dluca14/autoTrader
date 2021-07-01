@@ -3,16 +3,18 @@ import {Formik, Form} from "formik";
 import * as Yup from "yup";
 import {Link as RouterLink} from "react-router-dom";
 import {connect} from "react-redux";
-import {register} from "../../actions/auth";
+import {register} from "../../actions/accounts";
+import {paths} from "../../Paths";
 
 import {Grid, Typography, Avatar, Button, Container, makeStyles, Link, CssBaseline, Snackbar}
     from "@material-ui/core";
 
 // Custom Wrapper components
 import TextFieldWrapper from "../common/TextFieldWrapper";
+
 import {PropTypes} from "prop-types";
-import {login} from "../../actions/auth";
 import {Redirect} from "react-router";
+import useStyles from "./Styles";
 
 const initialValues = {
     email: '',
@@ -39,30 +41,6 @@ const validationSchema = Yup.object({
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Password confirmation is required')
 })
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: '#489fb5',
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-        backgroundColor: '#489fb5',
-        '&:hover': {
-            backgroundColor: '#16697a',
-        },
-    },
-}));
 
 const Register = (props) => {
     const classes = useStyles();
@@ -141,7 +119,7 @@ const Register = (props) => {
                          </Grid>
                          <Grid container justify="flex-end">
                              <Grid item>
-                                 <RouterLink component={Link} to="/login">
+                                 <RouterLink component={Link} to={paths.Login}>
                                      Already have an account? Sign in
                                  </RouterLink>
                              </Grid>

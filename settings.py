@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+DEFAULT_DOMAIN = 'localhost:8000'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -138,6 +140,10 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Development only - in production it should be configured properly
+# Sends the email in the console instead of actually sending an email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TWITTER_CREDENTIALS = {
     "CONSUMER_KEY": "du20Ko16LZJZrgWd40NwDMu2o",

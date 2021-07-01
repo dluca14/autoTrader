@@ -30,7 +30,7 @@
     "lightweight-charts": "^3.3.0",
     "prop-types": "^15.7.2",
     "react-alert": "^7.0.3",
-    "react-alert-template-basic": "^1.0.2",
+    "react-alert-template-oldschool-dark": "^1.0.1",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
