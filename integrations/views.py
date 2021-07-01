@@ -1,4 +1,6 @@
 from rest_framework import authentication, permissions
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import StaticHTMLRenderer, TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -33,11 +35,12 @@ class GetMostCommonHashtags(APIView):
         return Response(most_common)
 
 
+@renderer_classes([TemplateHTMLRenderer])
 class GetHeatMap(APIView):
     def get(self, request, format=None):
         result = get_heat_map()
 
-        return Response(result)
+        return Response(template_name='heatmap.html')
 
 
 class ListTweetsAsDataFrame(APIView):
@@ -49,7 +52,7 @@ class ListTweetsAsDataFrame(APIView):
         return Response(df)
 
 
-class DownloadTweets(APIView):
+class StreamTweets(APIView):
     def get(self, request, format=None):
         stream = MyStreamer(settings.TWITTER_CREDENTIALS['CONSUMER_KEY'],
                             settings.TWITTER_CREDENTIALS['CONSUMER_SECRET'],
