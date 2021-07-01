@@ -1,6 +1,5 @@
-django==3.2.3
-djangorestframework~=3.12.4
-knox
+django
+djangorestframework
 markdown
 asgiref
 cffi
@@ -9,6 +8,10 @@ django-filter
 numpy
 psycopg2
 django-cors-headers
+pika
+pandas
+requests
+joblib
 sqlparse
 pycparser
 pytz
