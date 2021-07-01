@@ -40,7 +40,7 @@ class GetHeatMap(APIView):
     def get(self, request, format=None):
         result = get_heat_map()
 
-        return Response(template_name='heatmap.html')
+        return Response(template_name='backend/heatmap.html')
 
 
 class ListTweetsAsDataFrame(APIView):
