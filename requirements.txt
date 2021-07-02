@@ -1,6 +1,9 @@
 django
 djangorestframework
 markdown
+asgiref
+cffi
+django-rest-knox
 django-filter
 numpy
 psycopg2
@@ -9,3 +12,12 @@ pika
 pandas
 requests
 joblib
+sqlparse
+pycparser
+pytz
+pika~=1.2.0
+docker-compose
+pandas~=1.2.4
+requests~=2.25.1
+joblib~=1.0.1
+twython~=3.8.2

@@ -18,10 +18,10 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-      fallback: {
-        "crypto": false
-      }
+  devServer: {
+    historyApiFallback: {
+      index: '/'
+    }
   },
   optimization: {
     minimize: true,

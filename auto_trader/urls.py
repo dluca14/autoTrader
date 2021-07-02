@@ -4,8 +4,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')),
+    path('', include('accounts.urls')),
 
-    # REST FRAMEWORK URLS
-    path('api/accounts/', include('accounts.api.urls', 'accounts_api')),
+
+    path('api/integrations', include('integrations.urls')),
     path('api/inference/', include('inference.urls'))
 ]

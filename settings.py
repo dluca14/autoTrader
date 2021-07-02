@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+DEFAULT_DOMAIN = 'localhost:8000'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,9 +40,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'accounts.apps.AccountsConfig',
+    'auto_trader.apps.AutoTraderConfig',
     'frontend.apps.FrontendConfig',
-    'inference.apps.InferenceConfig'
+    'inference.apps.InferenceConfig',
+    'integrations.apps.IntegrationsConfig',
+    'knox'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,3 +140,14 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Development only - in production it should be configured properly
+# Sends the email in the console instead of actually sending an email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+TWITTER_CREDENTIALS = {
+    "CONSUMER_KEY": "du20Ko16LZJZrgWd40NwDMu2o",
+    "CONSUMER_SECRET": "idLNMeF6UQkG0hbTZc8sNmxRFLDpiWBVyhEMvU4u1S9EbriXbm",
+    "ACCESS_TOKEN": "1399670561194774534-poWAkjRFvNP6MBOT505QugT3rfUxdp",
+    "ACCESS_SECRET": "jxHBw2A1e3ehRh8og0uNzuLs8vfL5q31Olx1eaoElx4Hy"
+}
