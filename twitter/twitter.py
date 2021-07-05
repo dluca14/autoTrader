@@ -7,7 +7,7 @@ import gmplot
 from twython import TwythonStreamer
 from geopy.geocoders import Nominatim
 
-from integrations.models import Tweet
+from twitter.models import Tweet
 
 
 def process_tweet(tweet):

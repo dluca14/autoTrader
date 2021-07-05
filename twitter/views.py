@@ -7,9 +7,9 @@ from rest_framework.views import APIView
 import pandas as pd
 
 import settings
-from integrations.models import Tweet
-from integrations.serializers import TweetSerializer
-from integrations.twitter import MyStreamer, get_most_common_hashtags, generate_heatmap
+from twitter.models import Tweet
+from twitter.serializers import TweetSerializer
+from twitter.twitter import MyStreamer, get_most_common_hashtags, generate_heatmap
 
 
 class ListTweets(APIView):

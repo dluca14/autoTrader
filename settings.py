@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'auto_trader.apps.AutoTraderConfig',
     'frontend.apps.FrontendConfig',
     'inference.apps.InferenceConfig',
-    'integrations.apps.IntegrationsConfig',
+    'twitter.apps.TwitterConfig',
     'knox'
 ]
 
