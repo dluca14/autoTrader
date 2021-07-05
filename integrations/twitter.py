@@ -36,7 +36,8 @@ class MyStreamer(TwythonStreamer):
         # save_to_csv(tweet_data)
 
     def on_error(self, status_code, data, headers=None):
-        print(status_code, data)
+        print('Error streaming tweets: ', status_code, data)
+
         self.disconnect()
 
 
@@ -56,7 +57,7 @@ def get_most_common_hashtags():
     return counter_hashtags.most_common(10)
 
 
-def get_heat_map():
+def generate_heatmap():
     tweets = Tweet.objects.all()[:50]
     tweets_df = pd.DataFrame(list(tweets.values()))
 
@@ -82,6 +83,6 @@ def get_heat_map():
     # Insert points on the map passing a list of latitudes and longitudes
     gmap.heatmap(coordinates['latitude'], coordinates['longitude'], radius=20)
     # Save the map to html file
-    gmap.draw("heatmap.html")
+    gmap.draw("frontend/templates/backend/heatmap.html")
 
     return gmap.get()

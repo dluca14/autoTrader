@@ -9,7 +9,7 @@ import pandas as pd
 import settings
 from integrations.models import Tweet
 from integrations.serializers import TweetSerializer
-from integrations.twitter import MyStreamer, get_most_common_hashtags, get_heat_map
+from integrations.twitter import MyStreamer, get_most_common_hashtags, generate_heatmap
 
 
 class ListTweets(APIView):
@@ -38,7 +38,7 @@ class GetMostCommonHashtags(APIView):
 @renderer_classes([TemplateHTMLRenderer])
 class GetHeatMap(APIView):
     def get(self, request, format=None):
-        result = get_heat_map()
+        generate_heatmap()
 
         return Response(template_name='backend/heatmap.html')
 
