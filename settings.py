@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'auto_trader.apps.AutoTraderConfig',
     'frontend.apps.FrontendConfig',
     'inference.apps.InferenceConfig',
-    'integrations.apps.IntegrationsConfig',
+    'twitter.apps.TwitterConfig',
     'knox'
 ]
 
@@ -67,8 +67,7 @@ ROOT_URLCONF = 'auto_trader.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'frontend/templates']
-        ,
+        'DIRS': [BASE_DIR / 'frontend/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,9 +144,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Sends the email in the console instead of actually sending an email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-TWITTER_CREDENTIALS = {
-    "CONSUMER_KEY": "du20Ko16LZJZrgWd40NwDMu2o",
-    "CONSUMER_SECRET": "idLNMeF6UQkG0hbTZc8sNmxRFLDpiWBVyhEMvU4u1S9EbriXbm",
-    "ACCESS_TOKEN": "1399670561194774534-poWAkjRFvNP6MBOT505QugT3rfUxdp",
-    "ACCESS_SECRET": "jxHBw2A1e3ehRh8og0uNzuLs8vfL5q31Olx1eaoElx4Hy"
-}
+try:
+    from settings_local import *
+except ImportError:
+    pass
