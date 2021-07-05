@@ -18,6 +18,11 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    historyApiFallback: {
+      index: '/'
+    }
+  },
   optimization: {
     minimize: true,
   },

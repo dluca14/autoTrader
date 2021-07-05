@@ -59,6 +59,7 @@ class StreamTweets(APIView):
                             settings.TWITTER_CREDENTIALS['ACCESS_TOKEN'],
                             settings.TWITTER_CREDENTIALS['ACCESS_SECRET'])
         # Start the stream
+        print('Starting the stream')
         stream.statuses.filter(track=['crypto', 'BTC', 'bitcoin', 'blockchain'],
                                language='en')
 

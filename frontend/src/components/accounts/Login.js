@@ -6,17 +6,18 @@ import {
     Avatar,
     Button, Container, CssBaseline,
     Grid, Link,
-    makeStyles,
     Typography
 } from "@material-ui/core";
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import TextFieldWrapper from "../common/TextFieldWrapper";
+import {paths} from "../../Paths";
 
 import {connect} from "react-redux";
 import {PropTypes} from "prop-types";
-import {login} from "../../actions/auth";
+import {login} from "../../actions/accounts";
 
 import {Redirect} from "react-router";
+import useStyles from "./Styles";
 
 const validationSchema = Yup.object({
     email: Yup
@@ -32,29 +33,6 @@ const initialValues = {
     email: '',
     password: ''
 }
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: '#489fb5',
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-        backgroundColor: '#489fb5',
-        '&:hover': {
-            backgroundColor: '#16697a',
-        },
-    },
-}));
 
 const Login = (props) => {
     const classes = useStyles();
@@ -75,7 +53,7 @@ const Login = (props) => {
                         <Grid container spacing={2} alignItems={"center"}>
                             <Grid item xs={12} align="center">
                                 <Avatar className={classes.avatar}>
-                                    <LockOpenIcon></LockOpenIcon>
+                                    <VpnKeyIcon/>
                                 </Avatar>
                                 <Typography component='h1' variant='h4'>
                                     User Login
@@ -112,12 +90,12 @@ const Login = (props) => {
                         </Grid>
                         <Grid container justify="flex-end">
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <RouterLink component={Link} to={paths.ForgotPassword}>
                                     Forgot password?
-                                </Link>
+                                </RouterLink>
                             </Grid>
                             <Grid item>
-                                <RouterLink component={Link} to="/register">
+                                <RouterLink component={Link} to={paths.Register}>
                                     Don't have an account? Sign Up
                                 </RouterLink>
                             </Grid>
