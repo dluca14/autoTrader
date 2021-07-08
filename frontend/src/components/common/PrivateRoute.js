@@ -3,6 +3,7 @@ import {Route, Redirect} from "react-router";
 import {connect} from "react-redux";
 import {PropTypes} from "prop-types";
 import {CircularProgress} from "@material-ui/core";
+import {paths} from "./Paths";
 
 const PrivateRoute = ({component: Component, auth, ...rest}) => {
     return (
@@ -12,7 +13,7 @@ const PrivateRoute = ({component: Component, auth, ...rest}) => {
                 if (auth.isLoading) {
                     return <CircularProgress />
                 } else if (!auth.isAuthenticated) {
-                    return <Redirect to="/login"/>
+                    return <Redirect to={paths.Login}/>
                 } else {
                     return <Component {...props} />
                 }
