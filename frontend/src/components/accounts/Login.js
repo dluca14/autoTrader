@@ -10,14 +10,15 @@ import {
 } from "@material-ui/core";
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import TextFieldWrapper from "../common/TextFieldWrapper";
-import {paths} from "../../Paths";
+
+
+import {paths} from "../common/Paths";
 
 import {connect} from "react-redux";
-import {PropTypes} from "prop-types";
 import {login} from "../../actions/accounts";
 
 import {Redirect} from "react-router";
-import useStyles from "./Styles";
+import {accountStyles} from "../common/styles/Accounts";
 
 const validationSchema = Yup.object({
     email: Yup
@@ -35,10 +36,10 @@ const initialValues = {
 }
 
 const Login = (props) => {
-    const classes = useStyles();
+    const classes = accountStyles();
 
     if (props.isAuthenticated) {
-        return <Redirect to="/"/>
+        return <Redirect to={paths.ChartView}/>
     } else {
         return (
             <Container maxWidth="xs">
@@ -105,11 +106,6 @@ const Login = (props) => {
             </Container>
         );
     }
-}
-
-Login.propTypes = {
-    login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
 }
 
 const mapStateToProps = state => ({

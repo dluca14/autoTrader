@@ -4,17 +4,15 @@ import * as Yup from "yup";
 import {Link as RouterLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {register} from "../../actions/accounts";
-import {paths} from "../../Paths";
+import {paths} from "../common/Paths";
 
-import {Grid, Typography, Avatar, Button, Container, makeStyles, Link, CssBaseline, Snackbar}
+import {Grid, Typography, Avatar, Button, Container, Link, CssBaseline}
     from "@material-ui/core";
 
-// Custom Wrapper components
 import TextFieldWrapper from "../common/TextFieldWrapper";
 
-import {PropTypes} from "prop-types";
 import {Redirect} from "react-router";
-import useStyles from "./Styles";
+import {accountStyles} from "../common/styles/Accounts";
 
 const initialValues = {
     email: '',
@@ -43,10 +41,10 @@ const validationSchema = Yup.object({
 })
 
 const Register = (props) => {
-    const classes = useStyles();
+    const classes = accountStyles();
 
      if (props.isAuthenticated) {
-        return <Redirect to="/"/>
+        return <Redirect to={paths.ChartView}/>
     } else {
          return (
              <Container maxWidth="xs">
@@ -129,12 +127,6 @@ const Register = (props) => {
              </Container>
          );
      }
-
-}
-
-Register.propTypes = {
-    register: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
 }
 
 const mapStateToProps = state => ({

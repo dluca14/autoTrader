@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Form, Formik} from "formik";
 import {Link as RouterLink} from "react-router-dom";
 import * as Yup from 'yup';
@@ -6,20 +6,19 @@ import {
     Avatar,
     Button, Container, CssBaseline,
     Grid, Link,
-    makeStyles,
     Typography
 } from "@material-ui/core";
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import TextFieldWrapper from "../common/TextFieldWrapper";
-import {paths} from "../../Paths";
+
+import {paths} from "../common/Paths";
 
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import {forgotPassword} from "../../actions/accounts";
 
 import {Redirect} from "react-router";
-import useStyles from "./Styles";
+import {accountStyles} from "../common/styles/Accounts";
 
 const validationSchema = Yup.object({
     email: Yup
@@ -33,7 +32,7 @@ const initialValues = {
 }
 
 const ResetForm = () => {
-    const classes = useStyles();
+    const classes = accountStyles();
 
     return [
         <Grid item xs={12} align="center">
@@ -91,10 +90,10 @@ const ResetDone = () => {
 
 
 const ForgotPassword = (props) => {
-    const classes = useStyles();
+    const classes = accountStyles();
 
     if (props.isAuthenticated) {
-        return <Redirect to="/"/>
+        return <Redirect to={paths.ChartView}/>
     } else {
         return (
             <Container maxWidth="xs">
@@ -126,12 +125,6 @@ const ForgotPassword = (props) => {
             </Container>
         );
     }
-}
-
-ForgotPassword.propTypes = {
-    forgotPassword: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
-    isPasswordReset: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
