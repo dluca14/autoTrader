@@ -4,12 +4,16 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
-        minWidth: "31px"
+        minWidth: 31
+    },
+    button: {
+        width: 125,
+        padding: 'auto'
     }
 }));
 
-// TODO This should use states to tell what option is selected
-const Dropdown = ({options, icon}) => {
+// TODO This should use REDUX states to tell what option is selected
+const HeaderDropdown = ({options, icon}) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -34,6 +38,7 @@ const Dropdown = ({options, icon}) => {
                     aria-haspopup="true"
                     aria-controls="dropdown-menu"
                     onClick={handleClickListItem}
+                    className={classes.button}
                 >
                     {icon && <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>}
                     <ListItemText primary={options[selectedIndex]}/>
@@ -61,4 +66,4 @@ const Dropdown = ({options, icon}) => {
     );
 }
 
-export default Dropdown;
+export default HeaderDropdown;

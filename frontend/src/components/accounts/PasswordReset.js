@@ -13,14 +13,13 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import TextFieldWrapper from "../common/TextFieldWrapper";
 
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import {passwordReset} from "../../actions/accounts";
 import {checkPasswordResetToken} from "../../actions/accounts";
 
 import {Redirect, useParams} from "react-router";
 import store from "../../store";
-import {paths} from "../../Paths";
-import useStyles from "./Styles";
+import {paths} from "../common/Paths";
+import {accountStyles} from "../common/styles/Accounts";
 
 const validationSchema = Yup.object({
     password: Yup
@@ -33,7 +32,7 @@ const initialValues = {
 }
 
 const ResetForm = () => {
-    const classes = useStyles();
+    const classes = accountStyles();
 
     return [
         <Grid item xs={12} align="center">
@@ -115,10 +114,10 @@ const PasswordReset = (props) => {
     useEffect(() => {
         store.dispatch(checkPasswordResetToken(uidb64, token));
     }, []);
-    const classes = useStyles();
+    const classes = accountStyles();
 
     if (props.isAuthenticated) {
-        return <Redirect to="/"/>
+        return <Redirect to={paths.ChartView}/>
     } else if (props.passwordResetToken) {
         if (props.passwordResetToken.success) {
             return (
@@ -160,13 +159,6 @@ const PasswordReset = (props) => {
             <CircularProgress/>
         </Grid>);
     }
-}
-
-PasswordReset.propTypes = {
-    passwordReset: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
-    isPasswordReset: PropTypes.bool,
-    passwordResetToken: PropTypes.object
 }
 
 const mapStateToProps = state => ({
