@@ -117,7 +117,7 @@ const PasswordReset = (props) => {
     const classes = accountStyles();
 
     if (props.isAuthenticated) {
-        return <Redirect to={paths.ChartView}/>
+        return <Redirect to={paths.Home}/>
     } else if (props.passwordResetToken) {
         if (props.passwordResetToken.success) {
             return (

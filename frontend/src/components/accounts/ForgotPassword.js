@@ -93,7 +93,7 @@ const ForgotPassword = (props) => {
     const classes = accountStyles();
 
     if (props.isAuthenticated) {
-        return <Redirect to={paths.ChartView}/>
+        return <Redirect to={paths.Home}/>
     } else {
         return (
             <Container maxWidth="xs">

@@ -2,34 +2,46 @@ import React from "react";
 import {List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     icon: {
         minWidth: 31
     },
     button: {
-        width: 125,
+        mimWidth: 125,
+        maxWidth: 150,
         padding: 'auto'
     }
 }));
 
-// TODO This should use REDUX states to tell what option is selected
-const HeaderDropdown = ({options, icon}) => {
+const HeaderDropdown = ({
+                            options,
+                            icon,
+                            changeState,
+                            defaultSelected = 0,
+                            disabledOptions = null,
+                            show = true
+                        }) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [selectedIndex, setSelectedIndex] = React.useState(defaultSelected);
 
     const handleClickListItem = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
+    // The change state callback functions changes the REDUX state - or it can be anything you want
     const handleMenuItemClick = (event, index) => {
         setSelectedIndex(index);
+        changeState(index);
         setAnchorEl(null);
     };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    if (!show) return null;
+
     return (
         <div>
             <List component="nav">
@@ -54,7 +66,7 @@ const HeaderDropdown = ({options, icon}) => {
                 {options.map((option, index) => (
                     <MenuItem
                         key={option}
-                        disabled={index === selectedIndex}
+                        disabled={index === selectedIndex || disabledOptions && disabledOptions.includes(index)}
                         selected={index === selectedIndex}
                         onClick={(event) => handleMenuItemClick(event, index)}
                     >

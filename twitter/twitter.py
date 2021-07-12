@@ -3,7 +3,8 @@ import csv
 from collections import Counter
 
 import pandas as pd
-import gmplot
+from geojson import Feature, Point, FeatureCollection
+from rest_framework.response import Response
 from twython import TwythonStreamer
 from geopy.geocoders import Nominatim
 
@@ -63,26 +64,27 @@ def generate_heatmap():
 
     geolocator = Nominatim(user_agent='auto_trader')
 
-    # Go through all tweets and add locations to 'coordinates' dictionary
-    coordinates = {'latitude': [], 'longitude': []}
+    features = []
+    # TODO this is too slow it takes about 25 secs, must be fixed
     for count, user_loc in enumerate(tweets_df.user_location):
         try:
             location = geolocator.geocode(user_loc)
 
             # If coordinates are found for location
+            # Weight can be adjusted based on tweet importance
+            # Other custom properties can be added
             if location:
-                coordinates['latitude'].append(location.latitude)
-                coordinates['longitude'].append(location.longitude)
+                features.append(
+                    Feature(
+                        geometry=Point((location.latitude, location.longitude)),
+                        properties={
+                            "weight": 3
+                        }
+                    )
+                )
 
         # If too many connection requests
         except:
             pass
 
-    # Instantiate and center a GoogleMapPlotter object to show our map
-    gmap = gmplot.GoogleMapPlotter(30, 0, 3)
-    # Insert points on the map passing a list of latitudes and longitudes
-    gmap.heatmap(coordinates['latitude'], coordinates['longitude'], radius=20)
-    # Save the map to html file
-    gmap.draw("frontend/templates/backend/heatmap.html")
-
-    return gmap.get()
+    return Response(FeatureCollection(features=features))

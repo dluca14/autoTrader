@@ -15,7 +15,6 @@ import {
     PASSWORD_RESET_TOKEN_CHECKED
 
 } from '../actions/types';
-import {act} from "react-dom/test-utils";
 
 const initialState = {
     token: localStorage.getItem('token'),
