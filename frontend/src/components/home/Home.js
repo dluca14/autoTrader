@@ -1,29 +1,36 @@
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import SimpleChart from "../common/trading/SimpleChart";
-import React from "react";
-import {Typography} from "@material-ui/core";
+import React, {useEffect} from "react";
 import {sectionStyle} from "../common/styles/Sections";
+import CandlestickChart from "../common/trading/CandlestickChart";
+import {connect} from "react-redux";
+import {loadChart} from "../../actions/trading";
+import Loading from "../common/Loading";
 
-//TODO parametrize this chart depending on state selection
-
-const Home = () => {
+const Home = (props) => {
     const classes = sectionStyle();
+    const {selectedCoin, selectedPeriod, chartIsLoaded} = props.trading;
+
+    useEffect(() => {
+        if (!chartIsLoaded) {
+            props.loadChart(selectedCoin, selectedPeriod)
+        }
+    }, [])
 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                    <Typography>Home</Typography>
-                </Paper>
-            </Grid>
-            <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                    <SimpleChart/>
+                    {!chartIsLoaded ? <Loading/> : <CandlestickChart/>}
                 </Paper>
             </Grid>
         </Grid>
     )
 }
 
-export default Home;
+const mapStateToProps = state => ({
+    auth: state.auth,
+    trading: state.trading
+})
+
+export default connect(mapStateToProps, {loadChart})(Home);
