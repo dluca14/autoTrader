@@ -9,14 +9,12 @@ from rest_framework.viewsets import ModelViewSet
 import settings_local
 from twitter.models import Tweet
 
-
 path = '/text/analytics/v3.0/sentiment'
 constructed_url = settings_local.AZURE['ENDPOINT'] + path
 
 
 class SentimentAnalyzer(APIView):
     def get(self, request, tweet_id=None):
-        print('=============', tweet_id)
         headers = {
             'Ocp-Apim-Subscription-Key': settings_local.AZURE['SUBSCRIPTION_KEY'],
             'Content-type': 'application/json',
@@ -24,9 +22,12 @@ class SentimentAnalyzer(APIView):
         }
 
         if tweet_id:
-            tweet = Tweet.objects.filter(Tweet.pk == tweet_id)
+            try:
+                tweet = Tweet.objects.get(id=tweet_id)
+            except Exception as e:
+                print(e)
         else:
-            tweet = Tweet.objects.all()
+            tweet = Tweet.objects.all()[0]
 
         # You can pass more than one object in body.
         body = {
@@ -44,10 +45,6 @@ class SentimentAnalyzer(APIView):
 
 
 class SentimentAnalyzerList(APIView):
-    """
-    * Requires token authentication.
-    * Only admin users are able to access this view.
-    """
     # authentication_classes = [authentication.TokenAuthentication]
     # permission_classes = [permissions.IsAdminUser]
 
