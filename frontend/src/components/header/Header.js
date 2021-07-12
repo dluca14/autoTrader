@@ -8,7 +8,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
 import {logout} from "../../actions/accounts";
 import {Button, Divider, Drawer, Icon, List, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useLocation} from "react-router-dom";
 
 import PersonIcon from '@material-ui/icons/Person';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -22,12 +22,13 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import HeaderDropdown from "./HeaderDropdown";
 
-import CoinPairs from "../common/trading/CoinPairs";
-import Periods from "../common/trading/Periods";
+import CoinPairs from "../../common/CoinPairs";
+import Periods from "../../common/Periods";
 
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import {paths} from "../common/Paths";
+import {selectCoin, selectPeriod} from "../../actions/trading";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -70,6 +71,8 @@ const Header = (props) => {
     const classes = useStyles();
     const coins = CoinPairs();
     const periods = Periods();
+    const router_location = useLocation();
+    const showDropdown = router_location.pathname === paths.Home;
 
     const {isAuthenticated, user} = props.auth
 
@@ -109,37 +112,36 @@ const Header = (props) => {
             </div>
             <Divider/>
             <List>
-                <ListItem button component={RouterLink} to={paths.Home}>
+                <ListItem button component={RouterLink} to={paths.Home} key={'Home'}>
                     <ListItemIcon><HomeIcon/></ListItemIcon>
                     <ListItemText primary={'Home'}/>
                 </ListItem>
-                <ListItem button component={RouterLink} to={paths.Heatmap}>
+                <ListItem button component={RouterLink} to={paths.Heatmap} key={'Heatmap'}>
                     <ListItemIcon><ExploreIcon/></ListItemIcon>
                     <ListItemText primary={'Heatmap'}/>
                 </ListItem>
-                <ListItem button component={RouterLink} to={paths.Portfolio}>
+                <ListItem button component={RouterLink} to={paths.Portfolio} key={'Portfolio'}>
                     <ListItemIcon><DonutLargeIcon/></ListItemIcon>
                     <ListItemText primary={'Portfolio'}/>
                 </ListItem>
-                <ListItem button component={RouterLink} to={paths.Predictions}>
+                <ListItem button component={RouterLink} to={paths.Predictions} key={'Predictions'}>
                     <ListItemIcon><MultilineChartIcon/></ListItemIcon>
                     <ListItemText primary={'Predictions'}/>
                 </ListItem>
-                <ListItem button component={RouterLink} to={paths.Sentiment}>
+                <ListItem button component={RouterLink} to={paths.Sentiment} key={'Sentiment'}>
                     <ListItemIcon><SentimentVerySatisfiedIcon/></ListItemIcon>
                     <ListItemText primary={'Data vs Sentiment'}/>
                 </ListItem>
             </List>
             <Divider/>
             <List>
-                <ListItem button onClick={props.logout}>
+                <ListItem button onClick={props.logout} key={'Logout'}>
                     <ListItemIcon><ExitToAppIcon/></ListItemIcon>
                     <ListItemText primary={'Logout'}/>
                 </ListItem>
             </List>
         </div>
     );
-
 
     const guestLinks = (
         <div>
@@ -154,11 +156,40 @@ const Header = (props) => {
         </div>
     );
 
+    const handleCoinSelection = (index) => {
+        let symbol = coins[index].split("/");
+        props.selectCoin(symbol[0]);
+    }
+
+    // TODO to be change when more periods will be added
+    const handlePeriodSelection = (index) => {
+        let symbol = periods[index].split(" ");
+        props.selectPeriod(symbol[1]);
+    }
+
     const authLinks = [
-        <Divider orientation="vertical" flexItem/>,
-        <HeaderDropdown options={coins} icon={<AttachMoneyIcon className={classes.dropdownIcon}/>}/>,
-        <Divider orientation="vertical" flexItem/>,
-        <HeaderDropdown options={periods} icon={<AccessTimeIcon className={classes.dropdownIcon}/>}/>,
+        <Divider
+            orientation="vertical" flexItem
+            style={{ display: showDropdown ? "block" : "none" }}
+        />,
+        <HeaderDropdown
+            options={coins}
+            icon={<AttachMoneyIcon className={classes.dropdownIcon}/>}
+            changeState={handleCoinSelection}
+            show={showDropdown}
+        />,
+        <Divider
+            orientation="vertical" flexItem
+            style={{ display: showDropdown ? "block" : "none" }}
+        />,
+        <HeaderDropdown
+            options={periods}
+            icon={<AccessTimeIcon className={classes.dropdownIcon}/>}
+            changeState={handlePeriodSelection}
+            defaultSelected={1}
+            disabledOptions={[0]}
+            show={showDropdown}
+        />,
         <Divider orientation="vertical" flexItem/>,
         <div>
             <React.Fragment key={'right'}>
@@ -196,7 +227,8 @@ const Header = (props) => {
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    trading: state.trading
 })
 
-export default connect(mapStateToProps, {logout})(Header);
+export default connect(mapStateToProps, {logout, selectCoin, selectPeriod})(Header);

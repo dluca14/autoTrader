@@ -35,12 +35,9 @@ class GetMostCommonHashtags(APIView):
         return Response(most_common)
 
 
-@renderer_classes([TemplateHTMLRenderer])
 class GetHeatMap(APIView):
-    def get(self, request, format=None):
-        generate_heatmap()
-
-        return Response(template_name='backend/heatmap.html')
+    def get(self, request):
+        return generate_heatmap()
 
 
 class ListTweetsAsDataFrame(APIView):
