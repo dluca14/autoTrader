@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig',
     'inference.apps.InferenceConfig',
     'twitter.apps.TwitterConfig',
-    'azure.apps.AzureConfig',
     'knox'
 ]
 
