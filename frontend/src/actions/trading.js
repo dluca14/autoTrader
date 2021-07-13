@@ -7,7 +7,8 @@ import {
     COIN_SELECTED,
     PERIOD_SELECTED,
     HEATMAP_LOADED,
-    HEATMAP_LOADING
+    HEATMAP_LOADING,
+    PREDICTION_CHART_LOADING, PREDICTION_CHART_LOADED
 } from "./types";
 
 const inferenceUrl = '/api/inference/'
@@ -35,13 +36,15 @@ export const loadChart = (coin, period) => (dispatch) => {
 }
 
 export const selectCoin = (coin) => (dispatch, getState) => {
-    dispatch({type: COIN_SELECTED, payload: coin})
-    dispatch(loadChart(coin, getState().trading.selectedPeriod))
+    dispatch({type: COIN_SELECTED, payload: coin});
+    dispatch(loadChart(coin, getState().trading.selectedPeriod));
+    dispatch(loadPredictionChart(coin, getState().trading.selectedPeriod));
 }
 
 export const selectPeriod = (period) => (dispatch, getState) => {
     dispatch({type: PERIOD_SELECTED, payload: period})
     dispatch(loadChart(getState().trading.selectedCoin, period))
+    dispatch(loadPredictionChart(getState().trading.selectedCoin, period));
 }
 
 export const loadHeatmap = () => (dispatch) => {
@@ -53,11 +56,32 @@ export const loadHeatmap = () => (dispatch) => {
 
     dispatch({type: HEATMAP_LOADING});
 
-        axios
+    axios
         .get(twitterUrl + `tweets/heat_map`, config)
         .then(res => {
             dispatch({
                 type: HEATMAP_LOADED,
+                payload: res.data
+            });
+        }).catch(err => {
+        dispatch(returnErrors(err.response.data, err.response.status));
+    });
+}
+
+export const loadPredictionChart = (coin, period) => (dispatch) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    dispatch({type: PREDICTION_CHART_LOADING});
+
+    axios
+        .get(inferenceUrl + `prediction_data/${coin}/${period}`, config)
+        .then(res => {
+            dispatch({
+                type: PREDICTION_CHART_LOADED,
                 payload: res.data
             });
         }).catch(err => {

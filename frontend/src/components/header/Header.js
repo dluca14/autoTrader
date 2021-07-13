@@ -66,13 +66,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-//TODO display dropdowns based on selected page (only on predictions & chartview)
 const Header = (props) => {
     const classes = useStyles();
     const coins = CoinPairs();
     const periods = Periods();
     const router_location = useLocation();
-    const showDropdown = router_location.pathname === paths.Home;
+    const showDropdown = router_location.pathname === paths.Home
+        || router_location.pathname === paths.Predictions;
+
+    // TODO change once all coins become available (GRT/MLN/REP/XLM)
+    const tempDisabled = [6,7,8,9]
 
     const {isAuthenticated, user} = props.auth
 
@@ -170,17 +173,18 @@ const Header = (props) => {
     const authLinks = [
         <Divider
             orientation="vertical" flexItem
-            style={{ display: showDropdown ? "block" : "none" }}
+            style={{display: showDropdown ? "block" : "none"}}
         />,
         <HeaderDropdown
             options={coins}
             icon={<AttachMoneyIcon className={classes.dropdownIcon}/>}
             changeState={handleCoinSelection}
             show={showDropdown}
+            disabledOptions={tempDisabled}
         />,
         <Divider
             orientation="vertical" flexItem
-            style={{ display: showDropdown ? "block" : "none" }}
+            style={{display: showDropdown ? "block" : "none"}}
         />,
         <HeaderDropdown
             options={periods}
