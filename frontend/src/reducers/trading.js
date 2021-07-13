@@ -2,7 +2,7 @@ import {
     CHART_LOADING,
     CHART_LOADED,
     COIN_SELECTED,
-    PERIOD_SELECTED, HEATMAP_LOADING, HEATMAP_LOADED
+    PERIOD_SELECTED, HEATMAP_LOADING, HEATMAP_LOADED, PREDICTION_CHART_LOADING, PREDICTION_CHART_LOADED
 } from "../actions/types";
 
 
@@ -12,7 +12,9 @@ const initialState = {
     chartIsLoaded: false,
     chartData: null,
     heatmapIsLoaded: false,
-    heatmapData: null
+    heatmapData: null,
+    predictionChartIsLoaded: false,
+    predictionChartData: null,
 }
 
 export default function (state = initialState, action) {
@@ -40,7 +42,7 @@ export default function (state = initialState, action) {
                 selectedPeriod: action.payload
             }
         case HEATMAP_LOADING:
-            return  {
+            return {
                 ...state,
                 heatmapIsLoaded: false,
                 heatmapData: null
@@ -50,6 +52,18 @@ export default function (state = initialState, action) {
                 ...state,
                 heatmapIsLoaded: true,
                 heatmapData: action.payload
+            }
+        case PREDICTION_CHART_LOADING:
+            return {
+                ...state,
+                predictionChartIsLoaded: false,
+                predictionChartData: null
+            }
+        case PREDICTION_CHART_LOADED:
+            return {
+                ...state,
+                predictionChartIsLoaded: true,
+                predictionChartData: action.payload
             }
         default:
             return state;

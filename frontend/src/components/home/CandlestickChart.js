@@ -1,13 +1,13 @@
 import {createChart, PriceScaleMode} from "lightweight-charts";
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {loadChart} from "../../../actions/trading";
+import {loadChart} from "../../actions/trading";
 
 function CandlestickChart(props) {
     const ref = React.useRef();
 
     const chartProperties = {
-        width: 1100,
+        width: 1200,
         height: 600,
         position: 'right',
         mode: PriceScaleMode.Normal,
