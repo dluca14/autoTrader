@@ -12,9 +12,10 @@ In financial research, one of the major topics is asset pricing prediction. The 
 
 
 ⌨ <b>Django Migrations</b> ⌨ <br>
-`django compose exec backend sh` - '#' should appear <br>
+`docker compose exec backend sh` - '#' should appear <br>
 `python manage.py makemigrations <APP>` - you can also optionally specify what app you want to taget example: `accounts`<br> 
-`python manage.py migrate`
+`python manage.py migrate` <br>
+`python manage.py loaddata coins` - this is used to load the default coins in the database
 
 ⚠️ <b>Troubleshooting</b> ⚠️<br>
 If the custom user model has been fundamentally changed the following must be deleted: <br>
