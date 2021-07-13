@@ -1,0 +1,74 @@
+[
+  {
+    "model": "auto_trader.Coin",
+    "pk": 1,
+    "fields": {
+      "code": "BTC",
+      "name": "Bitcoin"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 2,
+    "fields": {
+      "code": "ETH",
+      "name": "Ethereum"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 3,
+    "fields": {
+      "code": "ADA"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 4,
+    "fields": {
+      "code": "XRP"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 5,
+    "fields": {
+      "code": "DOGE"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 6,
+    "fields": {
+      "code": "ETC"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 7,
+    "fields": {
+      "code": "GRT"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 8,
+    "fields": {
+      "code": "MLN"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 9,
+    "fields": {
+      "code": "REP"
+    }
+  },
+  {
+    "model": "auto_trader.Coin",
+    "pk": 10,
+    "fields": {
+      "code": "XLM"
+    }
+  }
+]
