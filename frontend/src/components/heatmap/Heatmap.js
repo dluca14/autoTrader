@@ -12,7 +12,7 @@ const Heatmap = () => {
         <Grid container spacing={3}>
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                    <Typography>Twitter Heatmap</Typography>
+                    <Typography variant="h5">Twitter Heatmap</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={12}>

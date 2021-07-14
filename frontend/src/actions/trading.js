@@ -57,7 +57,7 @@ export const loadHeatmap = () => (dispatch) => {
     dispatch({type: HEATMAP_LOADING});
 
     axios
-        .get(twitterUrl + `tweets/heat_map`, config)
+        .get(`https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson`, config)
         .then(res => {
             dispatch({
                 type: HEATMAP_LOADED,

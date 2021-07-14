@@ -67,6 +67,7 @@ class ChartDataRepository:
                 row_time = row[1]
                 row_real_price = row[2]
                 row_pred_price = row[3]
+                row_ai_action = row[5]
                 row_hold_value = row[6]
                 row_ai_value = row[7]
 
@@ -87,7 +88,8 @@ class ChartDataRepository:
 
                 ai_point = {
                     "time": row_time,
-                    "value": row_ai_value
+                    "value": row_ai_value,
+                    "action": row_ai_action
                 }
 
                 self.chart_data["real"].append(real_point)

@@ -2,6 +2,7 @@ import {createChart, LineStyle, LineType, PriceScaleMode} from "lightweight-char
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {loadChart, loadPredictionChart} from "../../actions/trading";
+import {ChartDarkTheme} from "../common/styles/ChartDarkTheme";
 
 function PredictionChart(props) {
     const ref = React.useRef();
@@ -24,12 +25,10 @@ function PredictionChart(props) {
 
     useEffect(() => {
         const chart = createChart(ref.current, chartProperties);
-        const predictionSeries = chart.addLineSeries({
-            overlay: true,
-            lineStyle: LineStyle.Dashed,
-            lineWidth: 3
-        });
-        const realSeries = chart.addAreaSeries();
+        const realSeries = chart.addLineSeries({color: ChartDarkTheme.yellowSeries.topColor});
+        const predictionSeries = chart.addAreaSeries(ChartDarkTheme.blueSeries);
+
+        chart.applyOptions(ChartDarkTheme.chart);
 
         if (predictionChartData) {
             predictionSeries.setData(predictionChartData['prediction'].map(
