@@ -29,8 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'config.apps.Config',
     'accounts.apps.AccountsConfig',
-    'auto_trader.apps.AutoTraderConfig',
     'frontend.apps.FrontendConfig',
     'inference.apps.InferenceConfig',
     'twitter.apps.TwitterConfig',
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'auto_trader.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-WSGI_APPLICATION = 'auto_trader.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 

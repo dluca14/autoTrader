@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 
 import pandas as pd
 
-from auto_trader import settings
+from config import settings
 from twitter.models import Tweet
 from twitter.serializers import TweetSerializer
 from twitter.twitter import MyStreamer, get_most_common_hashtags, generate_heatmap
