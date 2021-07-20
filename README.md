@@ -4,7 +4,7 @@ In financial research, one of the major topics is asset pricing prediction. The 
 
 
 ⌨ <b>Setup Commands</b> ⌨ <br>
-`docker compose up` - To start-up django & postgres on docker <br>
+`docker compose up` - To start-up rabbitmq & postgres on docker <br>
 
 `cd frontend` - The following must be run from the frontend folder <br> 
 `npm i` - To install frontend dependencies <br>
@@ -13,15 +13,14 @@ Go to 'localhost:15672' to access RabbitMQ management console
 
 
 ⌨ <b>Django Migrations</b> ⌨ <br>
-`docker compose exec backend sh` - '#' should appear <br>
 `python manage.py makemigrations <APP>` - you can also optionally specify what app you want to taget example: `accounts`<br> 
 `python manage.py migrate` <br>
 `python manage.py loaddata coins` - this is used to load the default coins in the database
 
 ⚠️ <b>Troubleshooting</b> ⚠️<br>
-If the custom user model has been fundamentally changed the following must be deleted: <br>
-- the 'data' folder inside auto_trader
+If there are any errors regarding db migrations the following must be deleted: <br>
 - the 'at_postgres' Docker container
-- the migrations inside accounts/migrations folder
+- the '/data/db' folder inside project directory
+- the migrations inside every app's ./migrations folder
 
 After that, run `docker compose up` and see the section on Django Migrations
