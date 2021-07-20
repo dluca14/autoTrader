@@ -4,9 +4,11 @@ from rest_framework.exceptions import AuthenticationFailed
 from accounts.models import Account
 from django.contrib.auth import authenticate
 from .email_service import EmailService, EmailType
-from django.utils.encoding import smart_str, DjangoUnicodeDecodeError, force_str
+from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
+from accounts.tasks import send_email_task
 
 email_service = EmailService()
 
@@ -68,7 +70,7 @@ class ResetPasswordSerializer(serializers.Serializer):
         email = data['email']
         if Account.objects.filter(email=email).exists():
             user = Account.objects.get(email=email)
-            email_service.send_email(email_type=EmailType.PASSWORD_RESET, user=user)
+            send_email_task.delay(email_type='PASSWORD_RESET', user_id=user.id)
         else:
             raise serializers.ValidationError("Email was not found")
 

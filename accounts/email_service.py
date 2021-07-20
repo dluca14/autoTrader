@@ -3,9 +3,9 @@ from enum import Enum, auto
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import smart_bytes
-from django.urls import reverse
 from django.core.mail import EmailMessage
 
+from accounts.models import Account
 from accounts.utils import Util
 
 
@@ -15,9 +15,9 @@ class EmailType(Enum):
 
 
 class EmailService:
-    def send_email(self, email_type, user, **kwargs):
+    def send_email(self, email_type, user_id, **kwargs):
         factory = self._get_factory(email_type)
-        return factory(user, **kwargs)
+        factory(user_id, **kwargs)
 
     def _get_factory(self, email_type):
         if email_type == EmailType.PASSWORD_RESET:
@@ -25,12 +25,13 @@ class EmailService:
         if email_type == EmailType.MAIL_CONFIRMATION:
             return self._mail_confirmation_factory
 
-    def _password_reset_factory(self, user, **kwargs):
-        uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
-        token = PasswordResetTokenGenerator().make_token(user)
+    def _password_reset_factory(self, user_id, **kwargs):
+        user = Account.objects.get(id=user_id)
+        self.uidb64 = urlsafe_base64_encode(smart_bytes(user_id))
+        self.token = PasswordResetTokenGenerator().make_token(user)
 
         domain = Util.get_domain()
-        relative_link = f"/#/password-reset/{uidb64}/{token}"
+        relative_link = f"/#/password-reset/{self.uidb64}/{self.token}"
 
         abs_url = 'http://' + domain + relative_link
         email_body = 'Hello ' + user.first_name + ',\n' + \
@@ -46,6 +47,6 @@ class EmailService:
         )
         email.send()
 
-    def _mail_confirmation_factory(self, user, **kwargs):
+    def _mail_confirmation_factory(self, user_id, **kwargs):
         pass
 
