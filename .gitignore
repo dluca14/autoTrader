@@ -6,3 +6,5 @@ __pycache__/
 **/node_modules
 frontend/static/frontend/*
 !frontend/static/frontend/.gitkeep
+auto_trader/settings_local.py
+.env

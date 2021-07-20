@@ -1,8 +1,7 @@
 import csv
 from twython import TwythonStreamer
 
-
-import settings
+from auto_trader import settings
 
 
 # Filter out unwanted data

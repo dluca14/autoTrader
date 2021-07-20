@@ -8,7 +8,8 @@ In financial research, one of the major topics is asset pricing prediction. The 
 
 `cd frontend` - The following must be run from the frontend folder <br> 
 `npm i` - To install frontend dependencies <br>
-`npm run dev` - To run the frontend
+`npm run dev` - To run the frontend <br>
+Go to 'localhost:15672' to access RabbitMQ management console
 
 
 ⌨ <b>Django Migrations</b> ⌨ <br>

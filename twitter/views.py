@@ -1,12 +1,9 @@
-from rest_framework import authentication, permissions
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.renderers import StaticHTMLRenderer, TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 import pandas as pd
 
-import settings
+from auto_trader import settings
 from twitter.models import Tweet
 from twitter.serializers import TweetSerializer
 from twitter.twitter import MyStreamer, get_most_common_hashtags, generate_heatmap

@@ -1,22 +1,20 @@
 import uuid
 
 import requests
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
 
-import settings_local
+from auto_trader import settings
 from twitter.models import Tweet
 
 path = '/text/analytics/v3.0/sentiment'
-constructed_url = settings_local.AZURE['ENDPOINT'] + path
+constructed_url = settings.AZURE['ENDPOINT'] + path
 
 
 class SentimentAnalyzer(APIView):
     def get(self, request, tweet_id=None):
         headers = {
-            'Ocp-Apim-Subscription-Key': settings_local.AZURE['SUBSCRIPTION_KEY'],
+            'Ocp-Apim-Subscription-Key': settings.AZURE['SUBSCRIPTION_KEY'],
             'Content-type': 'application/json',
             'X-ClientTraceId': str(uuid.uuid4())
         }
@@ -50,7 +48,7 @@ class SentimentAnalyzerList(APIView):
 
     def get(self, request):
         headers = {
-            'Ocp-Apim-Subscription-Key': settings_local.AZURE['SUBSCRIPTION_KEY'],
+            'Ocp-Apim-Subscription-Key': settings.AZURE['SUBSCRIPTION_KEY'],
             'Content-type': 'application/json',
             'X-ClientTraceId': str(uuid.uuid4())
         }
