@@ -6,15 +6,17 @@ In financial research, one of the major topics is asset pricing prediction. The 
 ## Project Setup<br>
 File -> Settings -> Build,Execution,Deployment -> Docker -> + Add Docker (Windows: Docker for Windows)<br>
 File -> Settings -> Project Settings -> Python Interpreter -> Add Remote Python Interpreter (service: Django) <br>
-Run 'Backend' - Select upper-right corner in dropdown & press run <br>
 `cd frontend` - The following must be run from the frontend folder <br> 
 `npm i` - To install frontend dependencies <br>
+
+## Running the project locally <br>
+Run 'Backend' - Select upper-right corner in dropdown & press run <br>
 Run 'Frontend' - Select upper-right corner in dropdown & press run <br>
 
 
 ## ⌨ Django Migrations ⌨ <br>
 `docker compose exec django sh` - to enter the Django container<br>
-`python manage.py makemigrations <APP>` - you can also optionally specify what app you want to taget example: `accounts`<br> 
+`python manage.py makemigrations <APP>` - you can also optionally specify what app you want to target example: `accounts`<br> 
 `python manage.py migrate` <br>
 `python manage.py loaddata coins` - this is used to load the default coins in the database
 
@@ -24,5 +26,5 @@ If there are any errors regarding db migrations the following must be deleted: <
 - the '/data/db' folder inside project directory
 - the migrations inside every app's ./migrations folder
 
-After that, run `docker compose up` / click run and see the section on Django Migrations
+After that run 'Backend' and see the section on Django Migrations
 Going to 'localhost:15672' to enables access to the RabbitMQ management console
