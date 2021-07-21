@@ -2,7 +2,7 @@ from celery.utils.log import get_task_logger
 
 from accounts import email_service
 from accounts.email_service import EmailType
-from config.celery import app
+from core.celery import app
 
 logger = get_task_logger(__name__)
 

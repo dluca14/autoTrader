@@ -1,6 +1,25 @@
 version: '3.9'
 
 services:
+  django:
+    container_name: 'at_django'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: >
+      sh -c "python3 manage.py wait_for_db &&
+             python3 manage.py migrate &&
+             python3 manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+      - db
+      - celery
   rabbitmq:
     container_name: 'at_rabbitmq'
     image: rabbitmq:management
@@ -9,8 +28,6 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-
-
   db:
     container_name: 'at_postgres'
     image: postgres
@@ -23,3 +40,15 @@ services:
       - ./data/db:/var/lib/postgresql/data
     ports:
       - 5455:5432
+  celery:
+    container_name: 'at_celery'
+    restart: always
+    build:
+      context: .
+    command: celery -A core worker -l info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq

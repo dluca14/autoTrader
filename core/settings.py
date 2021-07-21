@@ -1,15 +1,14 @@
 from pathlib import Path
-import environ
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# Celery
+CELERY_BROKER_URL = os.environ.get('CELERY_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'config.apps.Config',
+    'core.apps.CoreConfig',
     'accounts.apps.AccountsConfig',
     'frontend.apps.FrontendConfig',
     'inference.apps.InferenceConfig',
@@ -53,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -73,18 +72,18 @@ TEMPLATES = [
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASS'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT')
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
@@ -132,20 +131,20 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_HOST_USER = env('EMAIL_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_USER_PASS')
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_USER_PASS')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 TWITTER_CREDENTIALS = {
-    'CONSUMER_KEY': env('TWITTER_CONSUMER_KEY'),
-    'CONSUMER_SECRET': env('TWITTER_CONSUMER_SECRET'),
-    'ACCESS_TOKEN': env('TWITTER_ACCESS_TOKEN'),
-    'ACCESS_SECRET': env('TWITTER_ACCESS_SECRET')
+    'CONSUMER_KEY': os.environ.get('TWITTER_CONSUMER_KEY'),
+    'CONSUMER_SECRET': os.environ.get('TWITTER_CONSUMER_SECRET'),
+    'ACCESS_TOKEN': os.environ.get('TWITTER_ACCESS_TOKEN'),
+    'ACCESS_SECRET': os.environ.get('TWITTER_ACCESS_SECRET')
 }
 
 AZURE = {
-    'SUBSCRIPTION_KEY': env('AZURE_SUBSCRIPTION_KEY'),
-    'ENDPOINT': env('AZURE_ENDPOINT')
+    'SUBSCRIPTION_KEY': os.environ.get('AZURE_SUBSCRIPTION_KEY'),
+    'ENDPOINT': os.environ.get('AZURE_ENDPOINT')
 }

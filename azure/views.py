@@ -4,7 +4,7 @@ import requests
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from config import settings
+from core import settings
 from twitter.models import Tweet
 
 path = '/text/analytics/v3.0/sentiment'

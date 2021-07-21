@@ -62,7 +62,7 @@ def generate_heatmap():
     tweets = Tweet.objects.all()[:50]
     tweets_df = pd.DataFrame(list(tweets.values()))
 
-    geolocator = Nominatim(user_agent='config')
+    geolocator = Nominatim(user_agent='core')
 
     features = []
     # TODO this is too slow it takes about 25 secs, must be fixed
