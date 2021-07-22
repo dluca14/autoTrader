@@ -38,7 +38,7 @@ class EmailService:
                      'Use the link below to reset your password \n' + abs_url
 
         to_email = (user.email, '')
-        email_subject = 'Reset your account password'
+        email_subject = 'Reset your password'
 
         email = EmailMessage(
             subject=email_subject,

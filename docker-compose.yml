@@ -39,9 +39,9 @@ services:
     ports:
       - 5455:5432
   celery_worker:
-    container_name: 'at_celery_worker'
     <<: *django
-    command: celery -A core worker -l info
+    container_name: 'at_celery_worker'
+    command: python manage.py runcelery
     ports: []
     depends_on:
       - rabbitmq
