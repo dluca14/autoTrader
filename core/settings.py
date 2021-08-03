@@ -1,14 +1,24 @@
 from pathlib import Path
 import os
 
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
+# reading .env file
+environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # Celery
-CELERY_BROKER_URL = os.environ.get('CELERY_URL')
+# CELERY_BROKER_URL = os.environ.get('CELERY_URL')
+CELERY_BROKER_URL = env('CELERY_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,17 +85,34 @@ AUTH_USER_MODEL = 'accounts.Account'
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
+# DATABASES = {
+#     # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
+#     'default': env.db(),
+#     # read os.environ['SQLITE_URL']
+#     # 'extra': env.db('SQLITE_URL', default='sqlite:////tmp/my-tmp-sqlite.db')
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASS'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASS'),
+#         'HOST': os.environ.get('DB_HOST'),
+#         'PORT': os.environ.get('DB_PORT'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -129,22 +156,43 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_USER_PASS')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_USER_PASS')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 TWITTER_CREDENTIALS = {
-    'CONSUMER_KEY': os.environ.get('TWITTER_CONSUMER_KEY'),
-    'CONSUMER_SECRET': os.environ.get('TWITTER_CONSUMER_SECRET'),
-    'ACCESS_TOKEN': os.environ.get('TWITTER_ACCESS_TOKEN'),
-    'ACCESS_SECRET': os.environ.get('TWITTER_ACCESS_SECRET')
+    'CONSUMER_KEY': env('TWITTER_CONSUMER_KEY'),
+    'CONSUMER_SECRET': env('TWITTER_CONSUMER_SECRET'),
+    'ACCESS_TOKEN': env('TWITTER_ACCESS_TOKEN'),
+    'ACCESS_SECRET': env('TWITTER_ACCESS_SECRET')
 }
 
 AZURE = {
-    'SUBSCRIPTION_KEY': os.environ.get('AZURE_SUBSCRIPTION_KEY'),
-    'ENDPOINT': os.environ.get('AZURE_ENDPOINT')
+    'SUBSCRIPTION_KEY': env('AZURE_SUBSCRIPTION_KEY'),
+    'ENDPOINT': env('AZURE_ENDPOINT')
 }
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_PORT = os.environ.get('EMAIL_PORT')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_USER_PASS')
+# DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+#
+# TWITTER_CREDENTIALS = {
+#     'CONSUMER_KEY': os.environ.get('TWITTER_CONSUMER_KEY'),
+#     'CONSUMER_SECRET': os.environ.get('TWITTER_CONSUMER_SECRET'),
+#     'ACCESS_TOKEN': os.environ.get('TWITTER_ACCESS_TOKEN'),
+#     'ACCESS_SECRET': os.environ.get('TWITTER_ACCESS_SECRET')
+# }
+#
+# AZURE = {
+#     'SUBSCRIPTION_KEY': os.environ.get('AZURE_SUBSCRIPTION_KEY'),
+#     'ENDPOINT': os.environ.get('AZURE_ENDPOINT')
+# }
