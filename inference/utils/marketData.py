@@ -4,6 +4,7 @@ from typing import List
 from datetime import date
 import json
 
+
 class marketData(object):
     endpoints = {'day': 'https://min-api.cryptocompare.com/data/histoday',
                  'min': 'https://min-api.cryptocompare.com/data/histominute',

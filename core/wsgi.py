@@ -1,5 +1,5 @@
 """
-WSGI config for auto_trader project.
+WSGI core for core project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

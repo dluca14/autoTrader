@@ -7,6 +7,9 @@ class ChartDataType(Enum):
     PREDICTION = 2
 
 
+data_dir = "data/"
+
+
 class ChartDataRepository:
     def get_chart_data(self, coin, period, data_type, **kwargs):
         factory = self._get_factory(data_type)
@@ -19,7 +22,7 @@ class ChartDataRepository:
             return self._prediction_csv_factory
 
     def _normal_csv_factory(self, coin, period, **kwargs):
-        base_dir = "chart_data/"
+        base_dir = data_dir + "chart_data/"
         filename = f"{coin.upper()}_{period.lower()}.csv"
 
         self.processed_candlestick = []
@@ -53,7 +56,7 @@ class ChartDataRepository:
         return self.processed_candlestick
 
     def _prediction_csv_factory(self, coin, period, **kwargs):
-        base_dir = "prediction_data/"
+        base_dir = data_dir + "prediction_data/"
         filename = f"{coin.upper()}_{period.lower()}.csv"
 
         self.chart_data = {"real": [], "prediction": [], "hold_value": [], "ai_value": []}

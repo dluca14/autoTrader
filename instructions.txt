@@ -1,8 +1,0 @@
-To setup Django project:
-1. django-admin startproject AutoTrader
-2. change directory to AutoTrader
-3. python manage.py migrate
-4. python manage.py runserver
-5. python manage.py startapp api_base
-6. python manage.py createsuperuser
-7. In StartDjango/settings.py add to the INSTALLED_APPS: 'rest_framework' and 'api_base'

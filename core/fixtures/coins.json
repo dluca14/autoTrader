@@ -1,6 +1,6 @@
 [
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 1,
     "fields": {
       "code": "BTC",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 2,
     "fields": {
       "code": "ETH",
@@ -16,56 +16,56 @@
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 3,
     "fields": {
       "code": "ADA"
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 4,
     "fields": {
       "code": "XRP"
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 5,
     "fields": {
       "code": "DOGE"
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 6,
     "fields": {
       "code": "ETC"
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 7,
     "fields": {
       "code": "GRT"
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 8,
     "fields": {
       "code": "MLN"
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 9,
     "fields": {
       "code": "REP"
     }
   },
   {
-    "model": "auto_trader.Coin",
+    "model": "core.Coin",
     "pk": 10,
     "fields": {
       "code": "XLM"

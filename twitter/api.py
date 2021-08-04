@@ -1,8 +1,7 @@
 import csv
 from twython import TwythonStreamer
 
-
-import settings
+from core import settings
 
 
 # Filter out unwanted data

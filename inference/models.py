@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import RESTRICT
 
-from auto_trader.models import Coin
+from core.models import Coin
 
 
 class CoinPriceHourly(models.Model):
