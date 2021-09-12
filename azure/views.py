@@ -11,62 +11,99 @@ path = '/text/analytics/v3.0/sentiment'
 constructed_url = settings.AZURE['ENDPOINT'] + path
 
 
+# class SentimentAnalyzer(APIView):
+#     def get(self, request, tweet_id=None):
+#         headers = {
+#             'Ocp-Apim-Subscription-Key': settings.AZURE['SUBSCRIPTION_KEY'],
+#             'Content-type': 'application/json',
+#             'X-ClientTraceId': str(uuid.uuid4())
+#         }
+#
+#         if tweet_id:
+#             try:
+#                 tweet = Tweet.objects.get(id=tweet_id)
+#             except Exception as e:
+#                 print(e)
+#         else:
+#             tweet = Tweet.objects.all()[0]
+#
+#         # You can pass more than one object in body.
+#         body = {
+#             'documents': [
+#                 {
+#                     'language': 'en',
+#                     'id': '1',
+#                     'text': tweet.text
+#                 },
+#             ]
+#         }
+#         response = requests.post(constructed_url, headers=headers, json=body)
+#
+#         return Response(response.json())
+#
+#
+# class SentimentAnalyzerList(APIView):
+#     # authentication_classes = [authentication.TokenAuthentication]
+#     # permission_classes = [permissions.IsAdminUser]
+#
+#     def get(self, request):
+#         headers = {
+#             'Ocp-Apim-Subscription-Key': settings.AZURE['SUBSCRIPTION_KEY'],
+#             'Content-type': 'application/json',
+#             'X-ClientTraceId': str(uuid.uuid4())
+#         }
+#
+#         tweets = Tweet.objects.all()[:10]
+#         final_response = []
+#         for tweet in tweets:
+#             # You can pass more than one object in body.
+#             body = {
+#                 'documents': [
+#                     {
+#                         'language': 'en',
+#                         'id': '1',
+#                         'text': tweet.text
+#                     },
+#                 ]
+#             }
+#             response = requests.post(constructed_url, headers=headers, json=body)
+#             final_response.append(response.json())
+#
+#         return Response(final_response)
+#
+
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+
 class SentimentAnalyzer(APIView):
     def get(self, request, tweet_id=None):
-        headers = {
-            'Ocp-Apim-Subscription-Key': settings.AZURE['SUBSCRIPTION_KEY'],
-            'Content-type': 'application/json',
-            'X-ClientTraceId': str(uuid.uuid4())
-        }
+        # if tweet_id:
+        #     try:
+        #         tweet = Tweet.objects.get(id=tweet_id)
+        #     except Exception as e:
+        #         print(e)
+        # else:
+        #     tweet = Tweet.objects.all()[0]
 
-        if tweet_id:
-            try:
-                tweet = Tweet.objects.get(id=tweet_id)
-            except Exception as e:
-                print(e)
-        else:
-            tweet = Tweet.objects.all()[0]
+        tweet = Tweet.objects.all()[0]
+        sia = SentimentIntensityAnalyzer()
+        sentiment = sia.polarity_scores(tweet.text)
+        sentiment['text'] = tweet.text
 
-        # You can pass more than one object in body.
-        body = {
-            'documents': [
-                {
-                    'language': 'en',
-                    'id': '1',
-                    'text': tweet.text
-                },
-            ]
-        }
-        response = requests.post(constructed_url, headers=headers, json=body)
-
-        return Response(response.json())
+        return Response(sentiment)
 
 
 class SentimentAnalyzerList(APIView):
-    # authentication_classes = [authentication.TokenAuthentication]
-    # permission_classes = [permissions.IsAdminUser]
-
     def get(self, request):
-        headers = {
-            'Ocp-Apim-Subscription-Key': settings.AZURE['SUBSCRIPTION_KEY'],
-            'Content-type': 'application/json',
-            'X-ClientTraceId': str(uuid.uuid4())
-        }
+        tweets = Tweet.objects.all()
 
-        tweets = Tweet.objects.all()[:10]
-        final_response = []
+        sia = SentimentIntensityAnalyzer()
+        score = []
         for tweet in tweets:
-            # You can pass more than one object in body.
-            body = {
-                'documents': [
-                    {
-                        'language': 'en',
-                        'id': '1',
-                        'text': tweet.text
-                    },
-                ]
-            }
-            response = requests.post(constructed_url, headers=headers, json=body)
-            final_response.append(response.json())
+            score.append(sia.polarity_scores(tweet.text)["compound"])
 
-        return Response(final_response)
+        # Tweet.objects.all().delete()
+        return Response({
+            'score': sum(score)/len(score),
+            'text': 'text'
+        })
