@@ -72,20 +72,22 @@ constructed_url = settings.AZURE['ENDPOINT'] + path
 #         return Response(final_response)
 #
 
+import nltk
+nltk.download('vader_lexicon')
+nltk.download('twitter_samples')
 from nltk.sentiment import SentimentIntensityAnalyzer
 
 
 class SentimentAnalyzer(APIView):
     def get(self, request, tweet_id=None):
-        # if tweet_id:
-        #     try:
-        #         tweet = Tweet.objects.get(id=tweet_id)
-        #     except Exception as e:
-        #         print(e)
-        # else:
-        #     tweet = Tweet.objects.all()[0]
+        if tweet_id:
+            try:
+                tweet = Tweet.objects.get(id=tweet_id)
+            except Exception as e:
+                print(e)
+        else:
+            tweet = Tweet.objects.all()[0]
 
-        tweet = Tweet.objects.all()[0]
         sia = SentimentIntensityAnalyzer()
         sentiment = sia.polarity_scores(tweet.text)
         sentiment['text'] = tweet.text
@@ -99,11 +101,13 @@ class SentimentAnalyzerList(APIView):
 
         sia = SentimentIntensityAnalyzer()
         score = []
+        text = []
         for tweet in tweets:
             score.append(sia.polarity_scores(tweet.text)["compound"])
+            text.append(tweet.text)
 
         # Tweet.objects.all().delete()
         return Response({
             'score': sum(score)/len(score),
-            'text': 'text'
+            'text': text
         })

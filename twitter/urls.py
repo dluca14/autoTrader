@@ -7,5 +7,5 @@ urlpatterns = [
     path('tweets/most_common', views.GetMostCommonHashtags.as_view()),
     path('tweets/heat_map', views.GetHeatMap.as_view()),
     path('tweets/dataframe', views.ListTweetsAsDataFrame.as_view()),
-    path('tweets/stream_tweets', views.StreamTweets.as_view()),
+    path('tweets/stream_tweets/<coin>/', views.StreamTweets.as_view()),
 ]

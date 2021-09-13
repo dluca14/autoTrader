@@ -38,7 +38,7 @@ class GetHeatMap(APIView):
 
 
 class ListTweetsAsDataFrame(APIView):
-    def get(self, request, format=None):
+    def get(self, request):
 
         tweets = Tweet.objects.all()
         df = pd.DataFrame(list(tweets.values()))
@@ -47,14 +47,18 @@ class ListTweetsAsDataFrame(APIView):
 
 
 class StreamTweets(APIView):
-    def get(self, request, format=None):
+    def get(self, request, coin=None):
         stream = MyStreamer(settings.TWITTER_CREDENTIALS['CONSUMER_KEY'],
                             settings.TWITTER_CREDENTIALS['CONSUMER_SECRET'],
                             settings.TWITTER_CREDENTIALS['ACCESS_TOKEN'],
                             settings.TWITTER_CREDENTIALS['ACCESS_SECRET'])
         # Start the stream
         print('Starting the stream')
-        stream.statuses.filter(track=['crypto', 'BTC', 'bitcoin', 'blockchain'],
+        track = {
+            'BTC': ['BTC', 'bitcoin'],
+            'ETH': ['ETH', 'Ethereum']
+        }
+        stream.statuses.filter(track=track[coin],
                                language='en')
 
         return Response()
